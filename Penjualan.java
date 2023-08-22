@@ -384,7 +384,7 @@ public class Penjualan {
             cetakJudul();
             System.out.println("Terima kasih...");
             System.out.println();
-            System.out.println("Copyright © 2023 Kelompok 7 X2E");
+            System.out.println("Copyright © 2023 Alfarobby 27");
             System.out.println();
             System.exit(0);
         } else {
