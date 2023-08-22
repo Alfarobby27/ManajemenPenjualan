@@ -12,11 +12,11 @@ Copyright &copy; 2023 Alfarobby27
 	```
 3. Lakukan kompilasi aplikasi
 	```bash
-	javac ManajemenPenjualan.java
+	javac Penjualan.java
 	```
 4. Jalankan aplikasi
 	```bash
-	java ManajemenPenjualan
+	java Penjualan
 	```
 
 ## Fitur
