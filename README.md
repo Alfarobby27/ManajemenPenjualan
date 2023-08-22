@@ -1,8 +1,8 @@
 # **Manajemen Penjualan**
 Ini adalah aplikasi CRUD Java sederhana yang bertemakan manajemen penjualan
 
-# **Dibuat oleh : Alfarobby27**
-Copyright &copy; 2023
+# **Dibuat oleh :**
+Copyright &copy; 2023 Alfarobby27
 
 ## Memulai
 1. Pastikan komputer kamu sudah terinstall [Git](https://git-scm.com/) dan [Java Development Kit](http://jdk.java.net/).
