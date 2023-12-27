@@ -95,7 +95,7 @@ public class Penjualan {
         System.out.print("Silakan pilih menu (0-5) : ");
         switch(bacaInput()) {
             case "1": daftarBarangPenjual(true); break;
-            case "2": rincianBarang(); break;
+            case "2": rincianBarang("penjual"); break;
             case "3": tambahBarang(); break;
             case "4": ubahBarang(); break;
             case "5": hapusBarang(); break;
@@ -119,7 +119,7 @@ public class Penjualan {
         System.out.print("Silakan pilih menu (0-3) : ");
         switch(bacaInput()) {
             case "1": daftarBarangPembeli(true); break;
-            case "2": rincianBarang(); break;
+            case "2": rincianBarang("pembeli"); break;
             case "3": beliBarang(); break;
             case "0": menu(); break;
             default: 
@@ -190,7 +190,7 @@ public class Penjualan {
 
 
     // 2. menampilkan rincian Barang
-    private static void rincianBarang(Barang... a) {
+    private static void rincianBarang(String menuSekarang, Barang... a) {
         Barang data = new Barang();
 
         // jika dari navigasi menu, maka tampilkan judul menu nya dan munculkan interaksi pilih barang
@@ -219,7 +219,7 @@ public class Penjualan {
         System.out.println("Nama Barang           : " + data.nama);
         System.out.println("Nama Kategori Barang  : " + data.kategori.nama);
         System.out.println("Stok                  : " + stok);
-        System.out.println("Harga Barang          : " + formatAngka(harga));
+        System.out.println("Harga Barang          : Rp " + formatAngka(harga));
         System.out.println("Berat Barang          : " + berat + "  " + satuan);
         System.out.println("Deskripsi Barang      : "+ deskripsi);
 
@@ -227,8 +227,12 @@ public class Penjualan {
         
         // jika dari navigasi menu, maka konfirmasi apakah ingin melihat rincian barang yang lain atau tidak
         if (a.length==0) {
-            pesanSukses("melihat rincian barang", "Rincian barang berhasil dilihat!");
-            rincianBarang();
+            if (menuSekarang == "penjual") {
+                pesanSuksesPenjual("melihat rincian barang", "Rincian barang berhasil dilihat!");
+            } else {
+                pesanSuksesPembeli("melihat rincian barang", "Rincian barang berhasil dilihat!");
+            }
+            rincianBarang(menuSekarang);
         }
     }
 
@@ -250,7 +254,7 @@ public class Penjualan {
         jumlah_data_barang++;
 
         // tampilkan pesan sukses dan konfirmasi apakah ingin menambah data barang kembali
-        pesanSukses("menambah data barang", "Data barang berhasil ditambahkan!", data);
+        pesanSuksesPenjual("menambah data barang", "Data barang berhasil ditambahkan!", data);
 
         // jika pilih y, maka lanjut menambah data barang kembali
         tambahBarang();
@@ -299,7 +303,7 @@ public class Penjualan {
             ubahBarang(); break;
         }
         // tampilkan pesan sukses dan konfirmasi apakah ingin merubah data barang kembali
-        pesanSukses("mengubah data barang", "Data barang berhasil diubah!");
+        pesanSuksesPenjual("mengubah data barang", "Data barang berhasil diubah!");
         // jika pilih y, maka lanjut merubah data barang kembali
         ubahBarang();
     }
@@ -328,7 +332,7 @@ public class Penjualan {
             data_barang = data_barang_baru;
 
             // tampilkan pesan sukses dan konfirmasi apakah ingin menghapus data barang kembali
-            pesanSukses("menghapus data barang", "Data barang berhasil dihapus!");
+            pesanSuksesPenjual("menghapus data barang", "Data barang berhasil dihapus!");
         }
         hapusBarang();
     }
@@ -336,12 +340,17 @@ public class Penjualan {
 
     // ================== Fitur khusus Pembeli ==================================
 
-    private static void beliBarang() {
+    private static void beliBarang(Barang... a) {
+        Barang data = new Barang();
+        
         cetakJudul("Beli Barang");
 
         // pilih barang yang mau dibeli
         int id = pilihNomorBarang("beli");
         System.out.println();
+        
+        // rincian data yang dipilih
+        data = data_barang[id-1];
         
         System.out.print("Masukkan Qty : "); String inputan = bacaInput();
         int qty = toInteger(inputan);
@@ -361,6 +370,22 @@ public class Penjualan {
             pesanKesalahan("Stok kurang, stok "+data_barang[id-1].nama+" tersisa "+data_barang[id-1].stok);
             beliBarang();
         } else {
+            int harga = data.harga;
+            
+            // hitung pembayaran
+            int bayar = qty * data.harga;
+            
+            // tampilkan rincian pembayaran
+            System.out.println();
+            System.out.println("Rincian Pembayaran");
+            System.out.println("------------------------------------------");
+            System.out.println("Nama Barang           : " + data.nama);
+            System.out.println("Qty                   : " + qty);
+            System.out.println("Harga Barang          : Rp " + formatAngka(harga));
+            System.out.println();
+            System.out.println("------------------------------------------ +");
+            System.out.println("Total pembayaran      : Rp " + formatAngka(bayar));
+            System.out.println();
             // konfirmasi apakah yakin ingin membeli barang
             System.out.print("Apakah anda yakin ingin membeli "+data_barang[id-1].nama+" ? [y/n] : ");
             if (bacaInput().equalsIgnoreCase("y")) {
@@ -368,7 +393,7 @@ public class Penjualan {
                 data_barang[id-1].stok -= qty;
 
                 // tampilkan pesan sukses dan konfirmasi apakah ingin membeli barang kembali
-                pesanSukses("membeli barang", "Barang berhasil dibeli!");
+                pesanSuksesPembeli("membeli barang", "Barang berhasil dibeli!");
             }
             beliBarang();
         }
@@ -417,8 +442,8 @@ public class Penjualan {
     }
 
 
-    // tampilkan pesan sukses
-    private static void pesanSukses(String aksi, String text, Barang... a) {
+    // tampilkan pesan sukses penjual
+    private static void pesanSuksesPenjual(String aksi, String text, Barang... a) {
         if (text!="") {        
             System.out.println("--------------------------------------------");
             System.out.println();
@@ -426,12 +451,30 @@ public class Penjualan {
         }
         if (a.length>0) {
             System.out.println();
-            rincianBarang(a[0]);
+            rincianBarang("penjual", a[0]);
         }
         System.out.println();
         System.out.print("Apakah anda ingin "+aksi+ " kembali ? [y/n] : ");
         if (!bacaInput().equalsIgnoreCase("y")) {
             penjual();
+        }
+    }
+    
+    // tampilkan pesan sukses pembeli
+    private static void pesanSuksesPembeli(String aksi, String text, Barang... a) {
+        if (text!="") {        
+            System.out.println("--------------------------------------------");
+            System.out.println();
+            System.out.println(text);
+        }
+        if (a.length>0) {
+            System.out.println();
+            rincianBarang("pembeli", a[0]);
+        }
+        System.out.println();
+        System.out.print("Apakah anda ingin "+aksi+ " kembali ? [y/n] : ");
+        if (!bacaInput().equalsIgnoreCase("y")) {
+            pembeli();
         }
     }
 
@@ -492,7 +535,7 @@ public class Penjualan {
     // tampilkan inputan untuk memilih barang.
     private static int pilihNomorBarang(String aksi) {
         daftarBarang(false);
-
+        
         // jika data barang nya masih kosong, tampilkan pesan kesalahan.
         if (jumlah_data_barang == 0) {
             System.out.println();
@@ -507,7 +550,7 @@ public class Penjualan {
         if (!isValidNumber(inputan) || nilai<0 || nilai>jumlah_data_barang) {
             pesanKesalahan("Nomor barang tidak valid! silakan isi dengan angka yang valid atau isi 0 untuk membatalkan.");
             switch (aksi) {
-                case "rincian": rincianBarang(); break;
+                case "rincian": rincianBarang("penjual"); break;
                 case "ubah": ubahBarang(); break;
                 case "hapus": hapusBarang(); break;
                 case "beli": beliBarang(); break;
@@ -515,6 +558,9 @@ public class Penjualan {
 
         // apabila diisi 0 maka kembali ke menu utama
         } else if (nilai == 0) {
+            if(aksi == "beli"){
+                pembeli();
+            }
             penjual();
         }
 

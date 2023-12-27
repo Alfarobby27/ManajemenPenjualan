@@ -1,28 +1,35 @@
 # **Manajemen Penjualan**
-Ini adalah aplikasi CRUD Java sederhana yang bertemakan manajemen penjualan
 
-# **Dibuat oleh :**
-Copyright &copy; 2023 Alfarobby27
+This is a simple Java CRUD application with a sales management theme
 
-## Memulai
-1. Pastikan komputer kamu sudah terinstall [Git](https://git-scm.com/) dan [Java Development Kit](http://jdk.java.net/).
-2. Kloning repositori ini ke komputer kamu dan masuk ke folder ManajemenPenjualan dari terminal atau cmd
-	```bash
-	git clone https://github.com/Alfarobby27/ManajemenPenjualan.git && cd ManajemenPenjualan
-	```
-3. Lakukan kompilasi aplikasi
-	```bash
-	javac Penjualan.java
-	```
-4. Jalankan aplikasi
-	```bash
-	java Penjualan
-	```
+# **Created by :**
 
-## Fitur
-- [x] Menampilkan Daftar Barang
-- [x] Melihat Rincian Barang
-- [x] Menambah Data Barang
-- [x] Merubah Data Barang
-- [x] Menghapus Data Barang
-- [x] Membeli Barang 
+Alfarobby27
+
+## Getting Started
+
+1. Make sure your computer has [Git](https://git-scm.com/) and [Java Development Kit](http://jdk.java.net/) installed.
+
+2. Clone this repository to your computer and go to ManajemenPenjualan folder from the terminal or cmd.
+
+   ```bash
+   git clone https://github.com/Alfarobby27/ManajemenPenjualan.git && cd ManajemenPenjualan
+   ```
+
+3. Compile the app
+   ```bash
+   javac Penjualan.java
+   ```
+4. Run the app
+   ```bash
+   java Penjualan
+   ```
+
+## Features
+
+- [x] Display Item List
+- [x] View Item Details
+- [x] Add Item Data
+- [x] Change Item Data
+- [x] Delete Item Data
+- [x] Buying Goods
